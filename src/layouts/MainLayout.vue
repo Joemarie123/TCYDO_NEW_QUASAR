@@ -1,53 +1,54 @@
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-grey-1">
-    <q-header elevated class="bg-white text-grey-8" height-hint="64">
-      <q-toolbar class="GNL__toolbar">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
         <q-btn
           flat
           dense
           round
-          @click="toggleLeftDrawer"
-          aria-label="Menu"
           icon="menu"
-          class="q-mr-sm"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title
-          v-if="$q.screen.gt.xs"
-          shrink
-          class="row items-center no-wrap"
-        >
-          <img
-            width="50"
-            height="50"
-            src="https://img.icons8.com/stickers/100/engineering.png"
-            alt="engineering"
-          />
-          <span class="q-ml-xs" style="font-size: 15px"
-            >CITY HEALTH CERTIFICATE SYSTEM</span
-          >
+        <q-toolbar-title v-if="$q.screen.gt.xs" shrink class="row items-center no-wrap">
+          <span class="q-ml-xs" style="font-size: 15px">TAGUM CITY YOUTH INFORMATION SYSTEM</span>
         </q-toolbar-title>
 
         <q-space />
 
         <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn round flat>
-            <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-            </q-avatar>
-            <q-tooltip>Account</q-tooltip>
+          <q-btn
+            flat
+            class="logout-button"
+            @click="logout"
+          >
+            Log Out
           </q-btn>
         </div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      class="bg-white"
-      :width="280"
-    >
+  v-model="leftDrawerOpen"
+  show-if-above
+  bordered
+  :width="280"
+  style="background-color: #14662b;">  
+  
+  <div class="q-pa-md">
+          <q-img
+  src="panda.jpg"
+  spinner-color="white"
+  class="q-img-container my-custom-image"
+/>
+
+  <div class="text-subtitle1 text-center" style="color: white">Boss Ken</div>
+    <div class="text-h6 q-mt-sm text-center" style="color: white">Admin</div>
+</div>
+
+
+
       <q-scroll-area class="fit">
         <q-list padding class="text-grey-8">
           <q-item
@@ -55,13 +56,14 @@
             v-ripple
             @click="handleItemClick"
             :class="{ 'active-item': selectedSection === 'dashboard' }"
+            
           >
             <q-item-section avatar>
               <q-avatar
                 rounded
                 :style="{
                   'background-color':
-                    selectedSection === 'dashboard' ? '#057407' : '#5f6368',
+                    selectedSection === 'dashboard' ? '#0e7c2b' : '#5f6368',
                 }"
                 text-color="white"
                 icon="dashboard"
@@ -69,11 +71,17 @@
               </q-avatar>
             </q-item-section>
 
-            <q-item-section class="responsive-text">
-              <q-item-label> <b>Home</b> </q-item-label>
+
+            
+            
+
+            <q-item-section class="responsive-text" >
+              <q-item-label style="color: white;"> <b>Home</b> </q-item-label>
             </q-item-section>
           </q-item>
 
+
+          
           <q-expansion-item group="somegroup" v-model="management">
             <template v-slot:header>
               <q-item-section avatar>
@@ -84,114 +92,217 @@
                   size="40px"
                   :style="{
                     'background-color':
-                      management === true ? '#057407' : '#5f6368',
+                      management === true ? '#0e7c2b' : '#5f6368',
                   }"
                 ></q-avatar>
               </q-item-section>
+
               <q-item-section class="responsive-text">
-                <q-item-label> <b>CHO Settings</b> </q-item-label>
+                <q-item-label style="color: white;"> <b>Admin Menu</b> </q-item-label>
               </q-item-section>
             </template>
 
             <q-item
               clickable
               v-ripple
-              @click="toggleSection('health_card')"
-              :class="{ 'active-item': selectedSection === 'health_card' }"
+              @click="toggleSection('add_user')"
+              :class="{ 'active-item': selectedSection === 'add_user' }"
             >
               <q-item-section class="q-ml-sm">
-                <q-item-label>
+                <q-item-label style="color: white;" >
                   <q-icon
                     :style="{
                       color:
-                        selectedSection === 'health_card'
+                        selectedSection === 'add_user'
                           ? '#006400'
                           : 'inherit',
                     }"
                     name="groups"
                     class="q-ml-md q-mr-md"
                   />
-                  Health Card</q-item-label
+                  Add User Account</q-item-label
                 >
               </q-item-section>
             </q-item>
 
             <q-item
-              clickable
-              v-ripple
-              @click="toggleSection('ToDoos_Two')"
-              :class="{ 'active-item': selectedSection === 'ToDoos_Two' }"
-            >
-              <q-item-section class="q-ml-sm">
-                <q-item-label>
-                  <q-icon
-                    :style="{
-                      color:
-                        selectedSection === 'ToDoos_Two'
-                          ? '#006400'
-                          : 'inherit',
-                    }"
-                    name="groups"
-                    class="q-ml-md q-mr-md"
-                  />
-                  To Do's 2</q-item-label
-                >
-              </q-item-section>
-            </q-item>
+  clickable
+  v-ripple
+  @click="toggleSection('enumertors_record')"
+  :class="{ 'active-item': selectedSection === 'enumertors_record' }"
+>
+  <q-item-section class="q-ml-sm">
+    <q-item-label style="color: white;">
+      <q-icon
+        :style="{
+          color:
+            selectedSection === 'enumertors_record'
+              ? '#006400'
+              : 'inherit',
+        }"
+        name="groups"
+        class="q-ml-md q-mr-md"
+      />
+      Enumerators Record
+    </q-item-label>
+  </q-item-section>
+</q-item>
+
           </q-expansion-item>
 
-          <q-expansion-item group="somegroup" v-model="settings">
-            <template v-slot:header>
-              <q-item-section avatar>
-                <q-avatar
-                  rounded
-                  :style="{
-                    'background-color':
-                      settings === true ? '#057407' : '#5f6368',
-                  }"
-                  text-color="white"
-                  icon="settings"
-                  size="40px"
-                ></q-avatar>
-              </q-item-section>
-              <q-item-section class="responsive-text">
-                <q-item-label> <b>Settings</b> </q-item-label>
-              </q-item-section>
-            </template>
-            <q-item
-              clickable
-              v-ripple
-              @click="toggleSection('user')"
-              :class="{ 'active-item': selectedSection === 'user' }"
-            >
-              <q-item-section class="q-ml-sm">
-                <q-item-label>
-                  <q-icon
-                    :style="{
-                      color: selectedSection === 'user' ? '#006400' : 'inherit',
-                    }"
-                    name="people"
-                    class="q-ml-md q-mr-md"
-                  />
-                  User</q-item-label
-                >
-              </q-item-section>
-            </q-item>
-          </q-expansion-item>
-        </q-list>
+          
+          
+
+          <q-expansion-item group="somegroup" v-model="youthRecord">
+  <template v-slot:header>
+    <q-item-section avatar>
+      <q-avatar
+        rounded
+        text-color="white"
+        icon="find_in_page"
+        size="40px"
+        :style="{
+          'background-color': youthRecord === true ? '#0e7c2b' : '#5f6368',
+        }"
+      ></q-avatar>
+    </q-item-section>
+    <q-item-section class="responsive-text">
+      <q-item-label style="color: white;"> <b>Youth Record</b> </q-item-label>
+    </q-item-section>
+  </template>
+
+  <q-item
+  clickable
+  v-ripple
+  @click="toggleSection('search_record')"
+  :class="{ 'active-item': selectedSection === 'search_record' }"
+>
+
+    <q-item-section class="q-ml-sm">
+      <q-item-label style="color: white;">
+        <q-icon
+          :style="{
+            color: selectedSection === 'search_record' ? '#0e7c2b' : 'inherit',
+          }"
+          name="search"
+          class="q-ml-md q-mr-md"
+        />
+        Search Record
+      </q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <q-item
+    clickable
+    v-ripple
+    @click="toggleSection('add_record')"
+    :class="{ 'active-item': selectedSection === 'add_record' }"
+  >
+    <q-item-section class="q-ml-sm">
+      <q-item-label style="color: white;">
+        <q-icon
+          :style="{
+            color: selectedSection === 'add_record' ? '#0e7c2b' : 'inherit',
+          }"
+          name="add_circle"
+          class="q-ml-md q-mr-md"
+        />
+        Add Record
+      </q-item-label>
+    </q-item-section>
+  </q-item>
+</q-expansion-item>
+
+
+
+
+
+<q-expansion-item group="somegroup" v-model="eventsMenu">
+  <template v-slot:header>
+    <q-item-section avatar>
+      <q-avatar
+        rounded
+        text-color="white"
+        icon="event"
+        size="40px"
+        :style="{
+          'background-color': eventsMenu === true ? '#0e7c2b' : '#5f6368',
+        }"
+      ></q-avatar>
+    </q-item-section>
+    <q-item-section class="responsive-text">
+      <q-item-label style="color: white;"> <b>Events Menu</b> </q-item-label>
+    </q-item-section>
+  </template>
+
+  <q-item
+    clickable
+    v-ripple
+    @click="toggleSection('create_events')"
+    :class="{ 'active-item': selectedSection === 'create_events' }"
+  >
+    <q-item-section class="q-ml-sm">
+      <q-item-label style="color: white;">
+        <q-icon
+          :style="{
+            color: selectedSection === 'create_events' ? '#0e7c2b' : 'inherit',
+          }"
+          name="event"
+          class="q-ml-md q-mr-md"
+        />
+        Create Events
+      </q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <q-item
+    clickable
+    v-ripple
+    @click="toggleSection('attendance')"
+    :class="{ 'active-item': selectedSection === 'attendance' }"
+  >
+    <q-item-section class="q-ml-sm">
+      <q-item-label style="color: white;">
+        <q-icon
+          :style="{
+            color: selectedSection === 'attendance' ? '#0e7c2b' : 'inherit',
+          }"
+          name="check_circle"
+          class="q-ml-md q-mr-md"
+        />
+        Attendance
+      </q-item-label>
+    </q-item-section>
+  </q-item>
+</q-expansion-item>
+  </q-list>
       </q-scroll-area>
     </q-drawer>
-    <!-- <q-page-container>
-      <router-view />
-    </q-page-container> -->
-    <q-page-container v-if="DashboardView">
+
+
+   <!-- Main content area -->
+   <q-page-container v-if="DashboardView">
       <DashboardView />
     </q-page-container>
-    <q-page-container v-if="showHealthCard">
-      <Health_card />
+
+    <q-page-container v-if="showAddUser">
+      <Add_user />
     </q-page-container>
-    <q-page-container v-if="showTodosTwo">
-      <ToDoos_Two />
+
+    <q-page-container v-if="showSearchRecord">
+      <Search_record />
+    </q-page-container>
+
+    <q-page-container v-if="showCreateEvents">
+      <Create_events />
+    </q-page-container>
+
+    <q-page-container v-if="showAttendance">
+      <Attendance />
+    </q-page-container>
+
+    <q-page-container v-if="showEnumeratorsRecord">
+      <Enumerators_record />
     </q-page-container>
   </q-layout>
 </template>
@@ -199,9 +310,12 @@
 <script>
 import { defineComponent, ref } from "vue";
 // import EssentialLink from "components/EssentialLink.vue";
-import Health_card from "components/Health_card.vue";
-import ToDoos_Two from "components/ToDoos_Two.vue";
+import Add_user from "components/Add_user.vue";
 import DashboardView from "src/components/DashboardView.vue";
+import Search_record from "src/components/Search_record.vue";
+import Create_events from "src/components/Create_events.vue";
+import Attendance from "src/components/Attendance.vue";
+import Enumerators_record from "src/components/Enumerators_record.vue";
 
 const linksList = [
   {
@@ -224,9 +338,12 @@ export default defineComponent({
 
   components: {
     // EssentialLink,
-    Health_card,
-    ToDoos_Two,
+    Add_user,
     DashboardView,
+    Search_record,
+    Create_events,
+    Attendance,
+    Enumerators_record,
   },
 
   setup() {
@@ -244,45 +361,57 @@ export default defineComponent({
     return {
       selectedSection: "dashboard",
       DashboardView: true,
-      showHealthCard: false,
-      showTodosTwo: false,
+      showAddUser: false,
+      showSearchRecord: false,
+      showCreateEvents: false,
+      showAttendance: false,
+      showEnumeratorsRecord: false,
       management: false,
-      settings: false,
+      youthRecord: false,
+      eventsMenu: false,
     };
   },
   methods: {
-    handleItemClick() {
-      // Call both functions here
-      this.toggleSection("dashboard");
-    },
-    toggleSubMenu() {
-      this.submenuOpen = !this.submenuOpen;
-    },
-
-    closeSubMenu() {
-      this.submenuOpen = false;
-    },
-    toggleSection(section) {
-      this.showHealthCard = section === "health_card";
-      this.showTodosTwo = section === "ToDoos_Two";
-      this.DashboardView = section === "dashboard";
-      if (section === "dashboard") {
-        this.management = false; // Close management expansion item
-        this.settings = false; // Close settings expansion item
-      } else {
-      }
-      if (this.selectedSection === section) {
-        // If the clicked section is already open, close it
-        this.selectedSection = null;
-      } else {
-        this.selectedSection = null;
-        this.selectedSection = section;
-      }
-    },
+  handleItemClick() {
+    this.toggleSection("dashboard");
   },
+  toggleSubMenu() {
+    this.submenuOpen = !this.submenuOpen;
+  },
+  closeSubMenu() {
+    this.submenuOpen = false;
+  },
+  toggleSection(section) {
+  this.showAddUser = section === 'add_user';
+  this.showSearchRecord = section === 'search_record';
+  this.DashboardView = section === 'dashboard';
+  this.showCreateEvents = section === 'create_events';
+  this.showAttendance = section === 'attendance';
+  this.showEnumeratorsRecord = section === 'enumerators_record';
+
+  // Ensure correct state for other expansion items
+  this.management = section === 'add_user' || section === 'enumerators_record';
+  this.youthRecord = section === 'search_record' || section === 'add_record';
+  this.eventsMenu = section === 'create_events' || section === 'attendance';
+
+  if (this.selectedSection === section) {
+    // Toggle section visibility on subsequent clicks
+    this.selectedSection = null;
+  } else {
+    this.selectedSection = section;
+  }
+},
+},
 });
 </script>
+
+
+
 <style scoped>
+.custom-drawer-bg {
+  background-color: #317543; /* Use your preferred shade of green */
+}
+
 .GNL__toolbar {
   height: 64px;
 }
@@ -319,4 +448,33 @@ export default defineComponent({
 .GNL__drawer-footer-link:hover {
   color: #000;
 }
+
+.q-img-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100px; 
+  max-width: 100px; 
+  border-radius: 100%; 
+  margin: 0 auto; 
+}
+
+.my-custom-image {
+  width: 100%; 
+  height: auto; 
+  border-radius: 100%; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
