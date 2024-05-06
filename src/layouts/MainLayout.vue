@@ -387,7 +387,7 @@ export default defineComponent({
   this.DashboardView = section === 'dashboard';
   this.showCreateEvents = section === 'create_events';
   this.showAttendance = section === 'attendance';
-  this.showEnumeratorsRecord = section === 'enumerators_record';
+  this.showEnumeratorsRecord = section === 'enumertors_record';
 
   // Ensure correct state for other expansion items
   this.management = section === 'add_user' || section === 'enumerators_record';
